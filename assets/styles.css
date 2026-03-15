@@ -1,1 +1,134 @@
-
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#05070b;
+  color:#f5f7fb;
+  line-height:1.5;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.container{max-width:1180px;margin:0 auto;padding:0 20px}
+.topbar{
+  position:sticky;top:0;z-index:10;
+  background:rgba(5,7,11,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:18px 0;
+}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{
+  width:42px;height:42px;border-radius:12px;
+  background:linear-gradient(135deg,#22c55e,#06b6d4);
+  display:flex;align-items:center;justify-content:center;
+  color:#031014;font-weight:800;
+}
+.brand h1{font-size:18px;margin:0}
+.brand p{margin:0;color:#aab4c8;font-size:14px}
+.menu{display:flex;flex-wrap:wrap;gap:10px}
+.menu a{
+  padding:10px 14px;border:1px solid rgba(255,255,255,.1);
+  border-radius:999px;color:#e8edf7;background:rgba(255,255,255,.03)
+}
+.hero{
+  padding:48px 0 18px;
+  background:
+    radial-gradient(circle at top left, rgba(34,197,94,.16), transparent 25%),
+    radial-gradient(circle at top right, rgba(6,182,212,.16), transparent 22%);
+}
+.grid{display:grid;gap:18px}
+.grid-2{grid-template-columns:1.45fr 1fr}
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.025));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
+  padding:22px;
+  box-shadow:0 20px 40px rgba(0,0,0,.22);
+}
+.hero h2{
+  font-size:58px;line-height:1.02;margin:0 0 14px;
+  letter-spacing:-1.5px
+}
+.lead{font-size:16px;color:#c4cede;max-width:760px}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:8px;padding:13px 18px;border-radius:14px;font-weight:700;
+  border:1px solid rgba(255,255,255,.1);
+  background:#121826;color:#fff;cursor:pointer
+}
+.btn.primary{background:linear-gradient(135deg,#22c55e,#06b6d4);color:#041016;border:none}
+.btn.ghost{background:transparent}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.badge{
+  padding:8px 12px;border-radius:999px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  color:#c9d3e3;font-size:14px
+}
+.section{padding:18px 0}
+.section-title{font-size:30px;margin:0 0 14px}
+.muted{color:#aab4c8}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.kpi{
+  padding:18px;border-radius:18px;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.08)
+}
+.kpi strong{display:block;font-size:30px}
+.list{display:grid;gap:12px}
+.point,.partner,.persona,.faq-item,.history-item{
+  padding:16px;border-radius:18px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08)
+}
+.point h4,.partner h4,.persona h4,.faq-item h4{margin:0 0 8px}
+.small{font-size:14px;color:#aab4c8}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.form-row{display:grid;gap:8px;margin-bottom:14px}
+label{font-weight:700}
+input,select,textarea{
+  width:100%;padding:12px 14px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.1);
+  background:#0d1420;color:#fff
+}
+table{width:100%;border-collapse:collapse}
+th,td{
+  text-align:left;padding:12px;border-bottom:1px solid rgba(255,255,255,.08)
+}
+.footer{
+  margin-top:26px;padding:26px 0 40px;
+  border-top:1px solid rgba(255,255,255,.08);color:#aab4c8
+}
+.notice{
+  padding:14px 16px;border-radius:16px;
+  background:rgba(34,197,94,.12);
+  border:1px solid rgba(34,197,94,.25);
+  color:#def7e8
+}
+.rank{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08)
+}
+.rank:last-child{border-bottom:none}
+.inline{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap
+}
+.code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  background:#0b1220;padding:10px 12px;border-radius:12px;
+  border:1px solid rgba(255,255,255,.08);word-break:break-all
+}
+.hero-mini h2{font-size:32px;margin:0 0 8px}
+.pill{
+  display:inline-block;padding:7px 10px;border-radius:999px;
+  background:rgba(6,182,212,.12);
+  border:1px solid rgba(6,182,212,.2);font-size:13px
+}
+@media (max-width:900px){
+  .grid-2,.split,.kpis{grid-template-columns:1fr}
+  .hero h2{font-size:40px}
+  .menu{display:none}
+}
