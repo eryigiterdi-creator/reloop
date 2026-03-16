@@ -1,590 +1,321 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const campaignCards = document.querySelectorAll('.campaign-card');
-  const reserveButtons = document.querySelectorAll('.reserve-btn');
-  const usageButtons = document.querySelectorAll('.usage-btn');
-  const redeemButtons = document.querySelectorAll('.redeem-btn');
-  const mapCards = document.querySelectorAll('.map-card');
+  const $ = (id) => document.getElementById(id);
+  const nav = $('nav');
+  const menuBtn = $('menu-btn');
+  const liveCard = $('live-card');
+  const pointsBalance = $('points-balance');
+  const walletBalance = $('wallet-balance');
+  const validatedCount = $('validated-count');
+  const co2Count = $('co2-count');
+  const levelTitle = $('level-title');
+  const profileLevel = $('profile-level');
+  const currentXp = $('current-xp');
+  const nextXp = $('next-xp');
+  const levelFill = $('level-fill');
+  const profileFill = $('profile-fill');
+  const levelHelper = $('level-helper');
+  const subscriptionState = $('subscription-state');
+  const contestScore = $('contest-score');
+  const plusBadge = $('plus-badge');
 
-  const pointsBalance = document.getElementById('points-balance');
-  const walletBalanceBig = document.getElementById('wallet-balance-big');
-  const leaderboardPoints = document.getElementById('leaderboard-points');
-  const leaderboardSidebarPoints = document.getElementById('leaderboard-sidebar-points');
-  const leaderboardRank = document.getElementById('leaderboard-rank');
-  const liveFeedback = document.getElementById('live-feedback');
-  const walletHistory = document.getElementById('wallet-history');
-  const activeBonLabel = document.getElementById('active-bon-label');
-  const userLevel = document.getElementById('user-level');
-  const validatedCount = document.getElementById('validated-count');
-  const badgeCount = document.getElementById('badge-count');
-  const subscriptionStatus = document.getElementById('subscription-status');
-  const badgeItems = document.querySelectorAll('.badge-item');
-  const notificationList = document.getElementById('notification-list');
-  const historyList = document.getElementById('deposit-history');
-  const notifBtn = document.getElementById('notif-btn');
+  const bonChip = $('bon-chip');
+  const bonValidity = $('bon-validity');
+  const bonTitle = $('bon-title');
+  const bonText = $('bon-text');
+  const bonCode = $('bon-code');
+  const bonLocation = $('bon-location');
+  const bonReward = $('bon-reward');
+  const bonStatus = $('bon-status');
+  const track1 = $('track-1');
+  const track2 = $('track-2');
+  const track3 = $('track-3');
 
-  const trackerCode = document.getElementById('tracker-code');
-  const trackerScan = document.getElementById('tracker-scan');
-  const trackerValidation = document.getElementById('tracker-validation');
-  const trackerNote = document.getElementById('tracker-note');
-  const scanBtn = document.getElementById('scan-btn');
-  const validateBtn = document.getElementById('validate-btn');
+  const codeList = $('code-list');
+  const cashbackHistory = $('cashback-history');
+  const depositHistory = $('deposit-history');
+  const notifList = $('notif-list');
+  const walletLast = $('wallet-last');
 
-  const bonStatusChip = document.getElementById('bon-status-chip');
-  const bonExpiry = document.getElementById('bon-expiry');
-  const bonTitle = document.getElementById('bon-title');
-  const bonSubtitle = document.getElementById('bon-subtitle');
-  const bonCode = document.getElementById('bon-code');
-  const bonLocation = document.getElementById('bon-location');
-  const bonPoints = document.getElementById('bon-points');
-  const bonStatus = document.getElementById('bon-status');
-  const qrCanvas = document.getElementById('qr-canvas');
+  const modal = $('reward-modal');
+  const modalTitle = $('modal-title');
+  const modalText = $('modal-text');
+  const modalCode = $('modal-code');
+  const openLink = $('open-link');
 
-  const levelCurrentPoints = document.getElementById('level-current-points');
-  const levelNextTarget = document.getElementById('level-next-target');
-  const levelProgressFill = document.getElementById('level-progress-fill');
-  const profileLevelTitle = document.getElementById('profile-level-title');
-  const profileLevelProgressFill = document.getElementById('profile-level-progress-fill');
-  const levelHelper = document.getElementById('level-helper');
-  const levelChip = document.getElementById('level-chip');
-  const levelPerks = document.getElementById('level-perks');
-  const roadmapSteps = document.querySelectorAll('.level-step');
-  const cashbackResultTitle = document.getElementById('cashback-result-title');
-  const cashbackResultText = document.getElementById('cashback-result-text');
-  const cashbackResultCode = document.getElementById('cashback-result-code');
-  const copyCodeBtn = document.getElementById('copy-code-btn');
-  const partnerLinkBtn = document.getElementById('partner-link-btn');
-  const subscribePlanBtn = document.getElementById('subscribe-plan-btn');
-  const cashbackResultBox = document.getElementById('cashback-result');
-  const rewardModal = document.getElementById('reward-modal');
-  const rewardModalTitle = document.getElementById('reward-modal-title');
-  const rewardModalText = document.getElementById('reward-modal-text');
-  const rewardModalCode = document.getElementById('reward-modal-code');
-  const rewardModalLink = document.getElementById('reward-modal-link');
-  const rewardModalCopy = document.getElementById('reward-modal-copy');
-  const rewardModalClose = document.getElementById('reward-modal-close');
-  const rewardModalBackdrop = document.getElementById('reward-modal-backdrop');
-
-  let balance = 1280;
-  let concoursPoints = 820;
-  let rank = 12;
-  let validatedDeposits = 3;
-  let unlockedBadges = 2;
-  let activeDeposit = null;
-  let qr = null;
+  let points = 1280;
+  let validated = 4;
+  let contest = 920;
+  let co2 = 480;
   let subscriptionActive = false;
+  let activeBon = null;
+  let qr = null;
 
-  const levelConfig = [
-    { min: 0, title: 'Niveau 1 · Départ textile', perks: ['Découverte des demandes', 'Suivi du premier bon', 'Accès aux points de base'] },
-    { min: 60, title: 'Niveau 2 · Tri débutant', perks: ['+1% bonus dépôt', 'Alerte campagne locale', 'Historique simplifié'] },
-    { min: 140, title: 'Niveau 3 · Apporteur utile', perks: ['+2% bonus dépôt', '1 mission flash / mois', 'Badge profil visible'] },
-    { min: 240, title: 'Niveau 4 · Collecteur local', perks: ['+3% bonus dépôt', '1 mission flash / semaine', 'Badge visible au classement'] },
-    { min: 360, title: 'Niveau 5 · Trieur fiable', perks: ['+4% bonus dépôt', 'Accès aux drops premium', 'Priorité atelier local'] },
-    { min: 500, title: 'Niveau 6 · Booster campus', perks: ['+5% bonus dépôt', '1 booster concours réduit', 'Challenge campus débloqué'] },
-    { min: 660, title: 'Niveau 7 · Acteur circulaire', perks: ['+6% bonus dépôt', 'Récompenses exclusives', 'Stats d’impact détaillées'] },
-    { min: 840, title: 'Niveau 8 · Ambassadeur textile', perks: ['+7% bonus dépôt', 'Badge doré concours', 'File rapide sur campagnes urgentes'] },
-    { min: 1040, title: 'Niveau 9 · Leader quartier', perks: ['+8% bonus dépôt', '1 lot surprise / mois', 'Visibilité renforcée au classement'] },
-    { min: 1260, title: 'Niveau 10 · Capitaine collecte', perks: ['+10% bonus dépôt', 'Ticket concours mensuel offert', 'Accès beta aux nouvelles missions'] },
-    { min: 1500, title: 'Niveau 11 · Expert réemploi', perks: ['+12% bonus dépôt', 'Réductions premium', 'Statut expert sur le profil'] },
-    { min: 1760, title: 'Niveau 12 · Maître Loop & Wear', perks: ['+15% bonus dépôt', 'Récompenses VIP', 'Top profil sur la saison'] }
+  const levels = [
+    { min: 0, title: 'Niveau 1 · Départ textile' },
+    { min: 60, title: 'Niveau 2 · Tri débutant' },
+    { min: 140, title: 'Niveau 3 · Apporteur utile' },
+    { min: 240, title: 'Niveau 4 · Collecteur local' },
+    { min: 360, title: 'Niveau 5 · Trieur fiable' },
+    { min: 500, title: 'Niveau 6 · Booster campus' },
+    { min: 660, title: 'Niveau 7 · Acteur circulaire' },
+    { min: 840, title: 'Niveau 8 · Ambassadeur textile' },
+    { min: 1040, title: 'Niveau 9 · Leader quartier' },
+    { min: 1260, title: 'Niveau 10 · Capitaine collecte' },
+    { min: 1500, title: 'Niveau 11 · Expert réemploi' },
+    { min: 1760, title: 'Niveau 12 · Maître Loop & Wear' }
   ];
 
-  const notificationsPool = [
+  const notifications = [
     'Nouvelle campagne manteaux publiée près de Rivetoile.',
-    'Votre bonus campus est disponible pendant 24 h.',
-    'Une benne proche accepte maintenant le denim en bon état.',
-    'Une mission flash vous donne +30 pts concours sur les sweats.',
-    'Un nouveau palier de niveau est presque atteint.'
+    'Une mission flash denim rapporte +25 pts concours.',
+    'Votre bon actif expire bientôt, pensez à déposer avant ce soir.',
+    'Un partenaire local a ajouté une récompense exclusive.',
+    'Une nouvelle entreprise cherche des sweats unis sur Strasbourg.'
   ];
 
-  if (window.QRious && qrCanvas) {
-    qr = new QRious({ element: qrCanvas, size: 170, value: 'Loop & Wear' });
+  if (window.QRious) {
+    qr = new QRious({ element: $('qr-canvas'), size: 180, value: 'Loop & Wear Strasbourg' });
   }
 
-  const updateFeedback = (message) => {
-    if (liveFeedback) liveFeedback.textContent = message;
-  };
+  function setLive(text) {
+    liveCard.textContent = text;
+  }
 
-  const updateWallet = (message) => {
-    if (walletHistory) walletHistory.textContent = message;
-  };
-
-  const flashCashbackBox = () => {
-    if (!cashbackResultBox) return;
-    cashbackResultBox.classList.remove('flash');
-    void cashbackResultBox.offsetWidth;
-    cashbackResultBox.classList.add('flash');
-    cashbackResultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  };
-
-  const setCashbackResult = ({ title, text, code = '—', link = '' }) => {
-    if (cashbackResultTitle) cashbackResultTitle.textContent = title;
-    if (cashbackResultText) cashbackResultText.textContent = text;
-    if (cashbackResultCode) cashbackResultCode.textContent = code || '—';
-
-    if (partnerLinkBtn) {
-      if (link) {
-        partnerLinkBtn.href = link;
-        partnerLinkBtn.classList.remove('hidden');
-      } else {
-        partnerLinkBtn.href = '#';
-        partnerLinkBtn.classList.add('hidden');
-      }
-    }
-  };
-
-  const openRewardModal = ({ title, text, code = '—', link = '' }) => {
-    if (rewardModalTitle) rewardModalTitle.textContent = title;
-    if (rewardModalText) rewardModalText.textContent = text;
-    if (rewardModalCode) rewardModalCode.textContent = code || '—';
-    if (rewardModalLink) {
-      if (link) {
-        rewardModalLink.href = link;
-        rewardModalLink.classList.remove('hidden');
-      } else {
-        rewardModalLink.href = '#';
-        rewardModalLink.classList.add('hidden');
-      }
-    }
-    if (rewardModal) {
-      rewardModal.classList.remove('hidden');
-      rewardModal.setAttribute('aria-hidden', 'false');
-    }
-  };
-
-  const closeRewardModal = () => {
-    if (rewardModal) {
-      rewardModal.classList.add('hidden');
-      rewardModal.setAttribute('aria-hidden', 'true');
-    }
-  };
-
-  const getCurrentLevel = () => {
-    let current = levelConfig[0];
-    let next = null;
-    levelConfig.forEach((level, index) => {
-      if (balance >= level.min) {
+  function currentLevelInfo() {
+    let current = levels[0];
+    let next = levels[1];
+    levels.forEach((level, idx) => {
+      if (points >= level.min) {
         current = level;
-        next = levelConfig[index + 1] || null;
+        next = levels[idx + 1] || null;
       }
     });
-    return { current, next, index: levelConfig.findIndex((level) => level.min === current.min) };
-  };
-
-  const updateLevel = () => {
-    const { current, next, index } = getCurrentLevel();
-    const start = current.min;
-    const end = next ? next.min : current.min + 240;
-    const progress = next ? ((balance - start) / (end - start)) * 100 : 100;
-    const nextLabel = next ? `Prochain palier : ${next.min} XP` : 'Palier max atteint';
-
-    userLevel.textContent = current.title;
-    if (profileLevelTitle) profileLevelTitle.textContent = current.title;
-    if (levelCurrentPoints) levelCurrentPoints.textContent = `${balance} XP`;
-    if (levelNextTarget) levelNextTarget.textContent = nextLabel;
-    if (levelChip) levelChip.textContent = `${balance} XP`;
-    if (levelProgressFill) levelProgressFill.style.width = `${Math.max(6, Math.min(100, progress))}%`;
-    if (profileLevelProgressFill) profileLevelProgressFill.style.width = `${Math.max(6, Math.min(100, progress))}%`;
-
-    if (levelHelper) {
-      levelHelper.textContent = next
-        ? `Encore ${Math.max(0, next.min - balance)} XP pour atteindre ${next.title}.`
-        : 'Tu as atteint le plus haut niveau de progression actuellement disponible.';
-    }
-
-    if (levelPerks) {
-      levelPerks.innerHTML = '';
-      current.perks.forEach((perk) => {
-        const span = document.createElement('span');
-        span.textContent = perk;
-        levelPerks.appendChild(span);
-      });
-    }
-
-    roadmapSteps.forEach((step, stepIndex) => {
-      step.classList.remove('active', 'current');
-      if (stepIndex < index) step.classList.add('active');
-      if (stepIndex === index) step.classList.add('current');
-    });
-  };
-
-  const refreshScoreboard = () => {
-    pointsBalance.textContent = balance;
-    walletBalanceBig.textContent = balance;
-    leaderboardPoints.textContent = concoursPoints;
-    leaderboardSidebarPoints.textContent = `${concoursPoints} pts`;
-    leaderboardRank.textContent = rank;
-    validatedCount.textContent = validatedDeposits;
-    badgeCount.textContent = unlockedBadges;
-    subscriptionStatus.textContent = subscriptionActive ? 'Plus' : 'Standard';
-    updateLevel();
-  };
-
-  const estimateRank = () => {
-    if (concoursPoints >= 1180) rank = 1;
-    else if (concoursPoints >= 1105) rank = 2;
-    else if (concoursPoints >= 1030) rank = 3;
-    else if (concoursPoints >= 970) rank = 4;
-    else if (concoursPoints >= 900) rank = 5;
-    else if (concoursPoints >= 860) rank = 8;
-    else rank = 12;
-  };
-
-  const unlockBadge = (index) => {
-    if (badgeItems[index] && !badgeItems[index].classList.contains('active')) {
-      badgeItems[index].classList.add('active');
-      unlockedBadges += 1;
-    }
-  };
-
-  if (menuToggle && navLinks) {
-    menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-    navLinks.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => navLinks.classList.remove('open')));
+    return { current, next };
   }
 
-  filterButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const filter = button.dataset.filter;
-      filterButtons.forEach((btn) => btn.classList.remove('active'));
-      button.classList.add('active');
+  function renderStats() {
+    const { current, next } = currentLevelInfo();
+    const start = current.min;
+    const end = next ? next.min : start + 260;
+    const ratio = Math.max(6, Math.min(100, ((points - start) / (end - start)) * 100));
+    pointsBalance.textContent = points;
+    walletBalance.textContent = points;
+    validatedCount.textContent = validated;
+    co2Count.textContent = co2;
+    levelTitle.textContent = current.title;
+    profileLevel.textContent = current.title;
+    currentXp.textContent = `${points} XP`;
+    nextXp.textContent = next ? `Prochain palier : ${next.min} XP` : 'Palier max atteint';
+    levelFill.style.width = `${ratio}%`;
+    profileFill.style.width = `${ratio}%`;
+    levelHelper.textContent = next ? `Encore ${next.min - points} XP pour atteindre ${next.title}.` : 'Tu as atteint le niveau maximum.';
+    subscriptionState.textContent = `Statut actuel : ${subscriptionActive ? 'Loop & Wear Plus' : 'Standard'}`;
+    if (subscriptionActive) plusBadge.classList.add('active');
+    else plusBadge.classList.remove('active');
+  }
 
-      campaignCards.forEach((card) => {
-        const shouldShow = filter === 'all' || card.dataset.category === filter;
-        card.classList.toggle('hidden', !shouldShow);
-      });
-
-      updateFeedback(`Filtre appliqué : ${button.textContent}.`);
-    });
-  });
-
-  const renderDeposit = () => {
-    if (!activeDeposit) return;
-
-    bonStatusChip.textContent = activeDeposit.statusChip;
-    bonExpiry.textContent = `Validité : ${activeDeposit.expiry}`;
-    bonTitle.textContent = activeDeposit.campaign;
-    bonSubtitle.textContent = `${activeDeposit.category} · dépôt prévu à ${activeDeposit.location}`;
-    bonCode.textContent = activeDeposit.code;
-    bonLocation.textContent = activeDeposit.location;
-    bonPoints.textContent = `${activeDeposit.points} pts max`;
-    bonStatus.textContent = activeDeposit.statusText;
-    activeBonLabel.textContent = activeDeposit.code;
-
-    trackerCode.textContent = `Bon ${activeDeposit.code} créé pour « ${activeDeposit.campaign} ».`;
-    trackerScan.textContent = activeDeposit.scanned
-      ? `QR code scanné à ${activeDeposit.location}. Le dépôt est enregistré.`
-      : 'En attente du scan à la benne ou au point relais.';
-    trackerValidation.textContent = activeDeposit.validated
-      ? `Dépôt validé. +${activeDeposit.points} points portefeuille crédités.`
-      : 'En attente du contrôle qualité et de la confirmation terrain.';
-
-    trackerNote.textContent = activeDeposit.validated
-      ? 'Le dépôt a été contrôlé et accepté. Les points sont utilisables dans la boutique cashback et le concours.'
-      : activeDeposit.scanned
-        ? 'Le scan a bien associé le dépôt au bon. Il reste maintenant la validation par le point de collecte ou le centre de tri.'
-        : 'Le client montre ce QR code à la benne connectée ou au point partenaire. Le scan déclenche l’enregistrement du dépôt.';
-
-    scanBtn.disabled = activeDeposit.scanned;
-    validateBtn.disabled = !activeDeposit.scanned || activeDeposit.validated;
-
-    if (qr) {
-      qr.value = JSON.stringify({
-        app: 'Loop & Wear',
-        code: activeDeposit.code,
-        campaign: activeDeposit.campaign,
-        location: activeDeposit.location,
-        points: activeDeposit.points
-      });
-    }
-  };
-
-  reserveButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const code = `LNW-${Math.floor(10000 + Math.random() * 90000)}`;
-      const expiryDate = new Date();
-      expiryDate.setDate(expiryDate.getDate() + 2);
-      const expiry = expiryDate.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
-
-      activeDeposit = {
-        code,
-        campaign: button.dataset.campaign,
-        category: button.dataset.category,
-        location: button.dataset.location,
-        points: Number(button.dataset.points),
-        scanned: false,
-        validated: false,
-        statusChip: 'Bon créé',
-        statusText: 'À présenter au scan',
-        expiry
-      };
-
-      reserveButtons.forEach((btn) => {
-        btn.disabled = false;
-        btn.textContent = 'Créer un bon de dépôt';
-      });
-      button.disabled = true;
-      button.textContent = 'Bon généré';
-
-      renderDeposit();
-      document.querySelector('#bons')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      updateFeedback(`Bon ${code} généré pour « ${activeDeposit.campaign} ». Le client peut maintenant aller à ${activeDeposit.location} et faire scanner le QR code.`);
-    });
-  });
-
-  scanBtn?.addEventListener('click', () => {
-    if (!activeDeposit) {
-      updateFeedback('Crée d’abord un bon de dépôt.');
-      return;
-    }
-
-    activeDeposit.scanned = true;
-    activeDeposit.statusChip = 'Scanné';
-    activeDeposit.statusText = 'Dépôt reçu · contrôle en attente';
-    renderDeposit();
-    updateFeedback(`Le bon ${activeDeposit.code} a été scanné à ${activeDeposit.location}. Le dépôt est maintenant traçable dans l’application.`);
-  });
-
-  validateBtn?.addEventListener('click', () => {
-    if (!activeDeposit || !activeDeposit.scanned) {
-      updateFeedback('Le QR code doit être scanné avant validation.');
-      return;
-    }
-    if (activeDeposit.validated) {
-      updateFeedback('Ce dépôt est déjà validé.');
-      return;
-    }
-
-    activeDeposit.validated = true;
-    activeDeposit.statusChip = 'Validé';
-    activeDeposit.statusText = 'Contrôle accepté';
-    balance += activeDeposit.points;
-    concoursPoints += Math.round(activeDeposit.points * 0.35);
-    validatedDeposits += 1;
-    unlockBadge(2);
-    estimateRank();
-    refreshScoreboard();
-    renderDeposit();
-    updateWallet(`Dépôt validé pour ${activeDeposit.campaign}, +${activeDeposit.points} points ajoutés au portefeuille.`);
-
-    const item = document.createElement('li');
-    item.innerHTML = `<strong>${activeDeposit.code}</strong> · ${activeDeposit.campaign} · Validé · +${activeDeposit.points} pts`;
-    historyList.prepend(item);
-
-    updateFeedback(`Dépôt validé : ${activeDeposit.points} points crédités et bonus concours ajouté automatiquement.`);
-  });
-
-  usageButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      document.querySelector(button.dataset.scroll || '#cashback')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      updateFeedback('Les points gagnés peuvent être convertis directement dans la boutique cashback ci-dessous.');
-    });
-  });
-
-  const handleRedeem = (button) => {
-      const cost = Number(button.dataset.cost || 0);
-      const reward = button.dataset.reward;
-      const code = button.dataset.code || '';
-      const link = button.dataset.link || '';
-
-      if (button.disabled) {
-        updateFeedback('Cet avantage a déjà été activé sur cette démonstration.');
-        flashCashbackBox();
-        return;
-      }
-
-      if (balance < cost) {
-        setCashbackResult({
-          title: 'Solde insuffisant',
-          text: `Il manque ${cost - balance} points pour débloquer cet avantage. Dépose un nouveau lot ou active un bonus concours.`,
-          code: '—'
-        });
-        updateFeedback(`Solde insuffisant : il manque ${cost - balance} points pour cet avantage.`);
-        flashCashbackBox();
-        return;
-      }
-
-      balance -= cost;
-      let action = 'Avantage activé';
-
-      if (reward === 'contest') {
-        concoursPoints += 50;
-        action = 'Booster concours activé, +50 pts concours ajoutés';
-        setCashbackResult({
-          title: 'Booster concours activé',
-          text: 'Le bonus concours est appliqué immédiatement dans le classement mensuel.',
-          code: 'BOOST+50'
-        });
-      }
-      if (reward === 'subscription') {
-        action = 'Loop & Wear Plus activé pour 1 mois';
-        subscriptionActive = true;
-        unlockBadge(3);
-        setCashbackResult({
-          title: 'Loop & Wear Plus activé',
-          text: 'L’abonnement est maintenant actif sur le compte pour 1 mois.',
-          code: 'PLUS-1MOIS'
-        });
-      }
-      if (reward === 'cinema') {
-        action = 'Place de cinéma débloquée';
-        setCashbackResult({
-          title: 'Place de cinéma débloquée',
-          text: 'Le code promo est affiché ci-dessous et le bouton permet aussi d’ouvrir le site du partenaire.',
-          code: code || 'LOOPCINE26',
-          link
-        });
-      }
-      if (reward === 'nike') {
-        action = 'Coupon 5 € Nike débloqué';
-        setCashbackResult({
-          title: 'Réduction Nike débloquée',
-          text: 'Le code promo est prêt à être copié. Le site officiel Nike France peut aussi être ouvert directement.',
-          code: code || 'RECYCL22',
-          link
-        });
-      }
-      if (reward === 'atelier') {
-        action = 'Atelier upcycling premium réservé';
-        setCashbackResult({
-          title: 'Atelier upcycling réservé',
-          text: 'Présente ce code au partenaire ou ajoute-le dans le formulaire de réservation.',
-          code: code || 'UPCYCLE26'
-        });
-      }
-      if (reward === 'friperie') {
-        action = 'Bon 10 € friperie partenaire ajouté au portefeuille';
-        setCashbackResult({
-          title: 'Bon friperie disponible',
-          text: 'Le bon d’achat reste visible dans l’espace avantages et peut être utilisé en caisse partenaire.',
-          code: code || 'FRIP-LOOP10'
-        });
-      }
-      if (reward === 'welcome') {
-        action = 'Code bienvenue débloqué';
-        setCashbackResult({
-          title: 'Code partenaire débloqué',
-          text: 'Le cashback fonctionne : le code s’affiche et le site partenaire peut s’ouvrir immédiatement.',
-          code: code || 'WELCOME15',
-          link
-        });
-      }
-
-      openRewardModal({
-        title: cashbackResultTitle?.textContent || 'Avantage activé',
-        text: cashbackResultText?.textContent || 'Le code est disponible.',
-        code: cashbackResultCode?.textContent || '—',
-        link: (partnerLinkBtn && !partnerLinkBtn.classList.contains('hidden')) ? partnerLinkBtn.href : ''
-      });
-
-      estimateRank();
-      refreshScoreboard();
-      button.disabled = true;
-      button.textContent = 'Activé';
-      updateWallet(action + '.');
-      updateFeedback(`Récompense activée : ${action}. Les points ont été débités du portefeuille.`);
-      flashCashbackBox();
-
-    };
-
-  redeemButtons.forEach((button) => {
-    button.addEventListener('click', () => handleRedeem(button));
-  });
-
-  document.addEventListener('click', (event) => {
-    const button = event.target.closest('.redeem-btn');
-    if (!button) return;
-    if (![...redeemButtons].includes(button)) return;
-  });
-
-  copyCodeBtn?.addEventListener('click', async () => {
-    const code = cashbackResultCode?.textContent?.trim();
-    if (!code || code === '—') {
-      updateFeedback('Aucun code promo à copier pour le moment.');
-      return;
-    }
-
-    try {
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(code);
-      }
-      updateFeedback(`Code ${code} copié.`);
-      updateWallet(`Code ${code} copié dans le presse-papiers.`);
-      flashCashbackBox();
-    } catch (error) {
-      updateFeedback(`Code à copier manuellement : ${code}.`);
-    }
-  });
-
-  rewardModalClose?.addEventListener('click', closeRewardModal);
-  rewardModalBackdrop?.addEventListener('click', closeRewardModal);
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeRewardModal();
-  });
-
-  rewardModalCopy?.addEventListener('click', async () => {
-    const code = rewardModalCode?.textContent?.trim();
-    if (!code || code === '—') return;
-    try {
-      if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(code);
-      updateFeedback(`Code ${code} copié.`);
-      updateWallet(`Code ${code} copié dans le presse-papiers.`);
-    } catch (error) {
-      updateFeedback(`Code à copier manuellement : ${code}.`);
-    }
-  });
-
-  subscribePlanBtn?.addEventListener('click', () => {
-    if (subscriptionActive) {
-      updateFeedback('L’abonnement Plus est déjà actif sur ce compte.');
-      return;
-    }
-    subscriptionActive = true;
-    unlockBadge(3);
-    refreshScoreboard();
-    setCashbackResult({
-      title: 'Loop & Wear Plus activé',
-      text: 'L’abonnement a été activé depuis l’onglet dédié.',
-      code: 'PLUS-1MOIS'
-    });
-    updateWallet('Abonnement Loop & Wear Plus activé depuis l’onglet dédié.');
-    updateFeedback('Abonnement Plus activé : bonus, offres exclusives et accès prioritaire débloqués.');
-    document.querySelector('#profil')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-
-  notifBtn?.addEventListener('click', () => {
+  function addHistory(listEl, html) {
+    const empty = listEl.querySelector('.empty-state');
+    if (empty) empty.remove();
     const li = document.createElement('li');
-    li.textContent = notificationsPool[Math.floor(Math.random() * notificationsPool.length)];
-    notificationList.prepend(li);
-    updateFeedback('Nouvelle notification ajoutée au profil utilisateur.');
+    li.innerHTML = html;
+    listEl.prepend(li);
+  }
+
+  function openModal(title, text, code, link) {
+    modalTitle.textContent = title;
+    modalText.textContent = text;
+    modalCode.textContent = code || '—';
+    if (link) {
+      openLink.href = link;
+      openLink.classList.remove('hidden');
+    } else {
+      openLink.href = '#';
+      openLink.classList.add('hidden');
+    }
+    modal.classList.remove('hidden');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeModal() {
+    modal.classList.add('hidden');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
+  function randomCode(prefix) {
+    return `${prefix}-${Math.floor(1000 + Math.random() * 9000)}`;
+  }
+
+  document.querySelectorAll('.filter-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.campaign-card').forEach((card) => {
+        card.classList.toggle('hidden', filter !== 'all' && card.dataset.category !== filter);
+      });
+      setLive(`Filtre actif : ${btn.textContent}.`);
+    });
   });
 
-  if (window.L && document.getElementById('collecte-map')) {
-    const map = L.map('collecte-map').setView([48.579, 7.746], 13);
+  document.querySelectorAll('.reserve-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const code = `LNW-${Math.floor(10000 + Math.random() * 90000)}`;
+      activeBon = {
+        code,
+        campaign: btn.dataset.campaign,
+        location: btn.dataset.location,
+        reward: Number(btn.dataset.points),
+        scanned: false,
+        validated: false
+      };
+      bonChip.textContent = 'Bon créé';
+      bonValidity.textContent = 'Validité : 48 h';
+      bonTitle.textContent = activeBon.campaign;
+      bonText.textContent = 'Présente ce bon au point de collecte choisi. Le scan enregistre le dépôt avant validation.';
+      bonCode.textContent = activeBon.code;
+      bonLocation.textContent = activeBon.location;
+      bonReward.textContent = `${activeBon.reward} pts estimés`;
+      bonStatus.textContent = 'Créé';
+      track1.textContent = `Bon ${activeBon.code} créé pour la campagne ${activeBon.campaign}.`;
+      track2.textContent = 'En attente du scan à la collecte.';
+      track3.textContent = 'Validation non déclenchée.';
+      if (qr) qr.value = `${activeBon.code} | ${activeBon.campaign} | ${activeBon.location}`;
+      setLive(`Bon ${activeBon.code} créé avec succès.`);
+      window.location.hash = 'bons';
+    });
+  });
+
+  $('scan-btn').addEventListener('click', () => {
+    if (!activeBon) {
+      setLive('Aucun bon actif à scanner.');
+      return;
+    }
+    activeBon.scanned = true;
+    bonChip.textContent = 'Déposé';
+    bonStatus.textContent = 'Scanné à la collecte';
+    track2.textContent = `Dépôt scanné à ${activeBon.location}.`; 
+    track3.textContent = 'En attente du contrôle qualité par le partenaire.';
+    setLive(`Le dépôt ${activeBon.code} a bien été scanné.`);
+  });
+
+  $('validate-btn').addEventListener('click', () => {
+    if (!activeBon) {
+      setLive('Crée d’abord un bon de dépôt.');
+      return;
+    }
+    if (!activeBon.scanned) {
+      setLive('Le bon doit être scanné à la collecte avant validation.');
+      return;
+    }
+    if (activeBon.validated) {
+      setLive('Ce dépôt a déjà été validé.');
+      return;
+    }
+    activeBon.validated = true;
+    points += activeBon.reward;
+    validated += 1;
+    contest += 40;
+    co2 += 18;
+    bonChip.textContent = 'Validé';
+    bonStatus.textContent = 'Conforme';
+    track3.textContent = `Dépôt validé : +${activeBon.reward} pts crédités.`;
+    addHistory(depositHistory, `<strong>${activeBon.code}</strong> · ${activeBon.campaign} · Validé · +${activeBon.reward} pts`);
+    setLive(`Dépôt validé : ${activeBon.reward} points ajoutés à votre compte.`);
+    renderStats();
+  });
+
+  document.querySelectorAll('.redeem-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const cost = Number(btn.dataset.cost);
+      if (points < cost) {
+        openModal('Solde insuffisant', `Il te manque ${cost - points} pts pour débloquer cet avantage.`, '—', '');
+        return;
+      }
+
+      const title = btn.dataset.title;
+      let code = btn.dataset.code || randomCode('LOOP');
+      const link = btn.dataset.link || '';
+      points -= cost;
+      let modalText = `Votre avantage a été activé. Copiez ce code et utilisez-le chez le partenaire.`;
+
+      if (title === 'Booster concours') {
+        contest += 120;
+        code = 'BOOST120';
+        modalText = 'Votre booster est activé. 120 points ont été ajoutés au classement mensuel.';
+      }
+
+      if (title === 'Loop & Wear Plus') {
+        subscriptionActive = true;
+        modalText = 'Loop & Wear Plus est activé pour 30 jours. Vos avantages premium sont désormais disponibles.';
+      }
+
+      walletLast.textContent = title;
+      addHistory(cashbackHistory, `<strong>${title}</strong> · ${cost} pts · Activé aujourd’hui`);
+      addHistory(codeList, `<strong>${title}</strong> · Code : <span>${code}</span>${link ? ` · <a href="${link}" target="_blank" rel="noopener">Ouvrir le site</a>` : ''}`);
+      openModal(title, modalText, code, link);
+      setLive(`${title} activé avec succès.`);
+      renderStats();
+      contestScore.textContent = `${contest} pts`;
+    });
+  });
+
+  $('copy-btn').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(modalCode.textContent);
+      $('copy-btn').textContent = 'Code copié';
+      setTimeout(() => $('copy-btn').textContent = 'Copier le code', 1500);
+    } catch {
+      $('copy-btn').textContent = 'Copie impossible';
+      setTimeout(() => $('copy-btn').textContent = 'Copier le code', 1500);
+    }
+  });
+
+  $('modal-close').addEventListener('click', closeModal);
+  $('modal-backdrop').addEventListener('click', closeModal);
+
+  $('subscribe-btn').addEventListener('click', () => {
+    subscriptionActive = !subscriptionActive;
+    setLive(subscriptionActive ? 'Loop & Wear Plus activé.' : 'Loop & Wear Plus désactivé.');
+    renderStats();
+  });
+
+  $('notif-btn').addEventListener('click', () => {
+    addHistory(notifList, notifications[Math.floor(Math.random() * notifications.length)]);
+    setLive('Nouvelle notification ajoutée.');
+  });
+
+  $('partner-btn').addEventListener('click', () => {
+    $('partner-feedback').textContent = 'Demande partenaire envoyée. Un rendez-vous de qualification peut être proposé sous 48 h.';
+    setLive('Demande partenaire envoyée.');
+  });
+
+  $('contact-btn').addEventListener('click', () => {
+    $('contact-feedback').textContent = 'Message envoyé. Merci, nous revenons vers vous rapidement.';
+    setLive('Message de contact envoyé.');
+  });
+
+  if (menuBtn && nav) {
+    menuBtn.addEventListener('click', () => nav.classList.toggle('open'));
+    nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => nav.classList.remove('open')));
+  }
+
+  if (window.L) {
+    const map = L.map('map').setView([48.5839, 7.7455], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    mapCards.forEach((card) => {
-      const lat = Number(card.dataset.lat);
-      const lng = Number(card.dataset.lng);
-      const name = card.dataset.name;
-      const address = card.dataset.address;
-      const marker = L.marker([lat, lng]).addTo(map).bindPopup(`<strong>${name}</strong><br>${address}`);
+    const pointsData = [
+      ['Esplanade · Borne 1', 48.5838, 7.7680],
+      ['Rivetoile · Point relais', 48.5737, 7.7579],
+      ['Neudorf · Borne 3', 48.5652, 7.7608],
+      ['Gare centrale · Borne 4', 48.5854, 7.7340],
+      ['Krutenau · Borne 5', 48.5796, 7.7544]
+    ];
 
-      card.addEventListener('click', () => {
-        mapCards.forEach((item) => item.classList.remove('active'));
-        card.classList.add('active');
-        map.flyTo([lat, lng], 15, { duration: 0.8 });
-        marker.openPopup();
-        updateFeedback(`Point de collecte sélectionné : ${name}.`);
-      });
-    });
-
-    if (mapCards[0]) mapCards[0].click();
+    pointsData.forEach(([label, lat, lng]) => L.marker([lat, lng]).addTo(map).bindPopup(label));
   }
 
-  refreshScoreboard();
+  renderStats();
 });
