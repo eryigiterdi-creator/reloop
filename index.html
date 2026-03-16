@@ -1,5 +1,372 @@
-<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Loop & Wear – Collecte textile intelligente</title><link rel="stylesheet" href="./assets/styles.css"></head><body><header class="topbar"><div class="container nav"><a class="brand" href="index.html"><img class="brand-logo" src="./assets/logo.png" alt="Loop & Wear"><div><h1>Loop & Wear</h1><p>Collecte textile intelligente • Strasbourg</p></div></a><nav class="menu"><a href="index.html">Accueil</a><a href="collecte.html">Points</a><a href="app.html">Déposer</a><a href="entreprises.html">Je suis une entreprise</a><a href="partenaires.html">Partenaires</a><a href="concours.html">Concours</a><a href="abonnement.html">Abonnements</a><a href="impact.html">Impact</a><a href="faq.html">FAQ</a></nav></div></header>
-<main class="hero"><div class="container grid grid-2"><section class="card"><h2>La collecte textile qui suit la demande locale.</h2><p class="lead">Loop & Wear relie les dépôts citoyens, les points de collecte de Strasbourg et les acteurs qui revalorisent les textiles. Cashback, concours, demandes entreprises et impact écologique dans un seul service.</p><div class="badges"><span class="badge">Strasbourg pilote</span><span class="badge">Cashback local</span><span class="badge">Concours mensuel</span><span class="badge">Demandes entreprises visibles</span></div><div class="actions" style="margin-top:18px"><a class="btn primary" href="app.html">Déposer maintenant</a><a class="btn" href="partenaires.html">Voir les récompenses</a><a class="btn" href="concours.html">Découvrir le concours</a></div></section><aside class="hero-visual"><div class="card glow-card"><h3 style="margin-top:0">Impact écologique du pilote</h3><p class="muted">Estimations de démonstration basées sur le volume collecté sur la zone test.</p><div class="eco-impact"><div class="impact-card"><h4>Textile détourné</h4><strong>512 kg</strong><div class="small">évités à l’élimination classique</div></div><div class="impact-card"><h4>Émissions évitées</h4><strong>1,4 t</strong><div class="small">équivalent CO₂ estimé</div></div><div class="impact-card"><h4>Articles prolongés</h4><strong>1 260</strong><div class="small">pièces réorientées vers le réemploi</div></div><div class="impact-card"><h4>Réseau local</h4><strong>6</strong><div class="small">partenaires activés</div></div></div></div><div class="card"><h3 class="section-title">Ce que les utilisateurs débloquent</h3><div class="list"><div class="partner"><div class="inline"><h4>Cashback local</h4><span class="pill">cinéma • sport • café</span></div><div class="small">Les points gagnés deviennent des avantages chez les partenaires de Strasbourg.</div></div><div class="partner"><div class="inline"><h4>Podium concours</h4><span class="pill">top 3 récompensé</span></div><div class="small">Chaque dépôt te fait progresser au classement mensuel.</div></div></div></div></aside></div></main>
-<section class="section"><div class="container grid grid-3"><div class="card"><h3>Pourquoi ce service</h3><p class="muted">Rendre le tri textile plus simple, visible et motivant, avec des débouchés locaux et un suivi clair.</p></div><div class="card"><h3>Pour les déposants</h3><p class="muted">Récompenses, concours, cashback et expérience plus concrète pour encourager les bons gestes.</p></div><div class="card"><h3>Pour les entreprises</h3><p class="muted">Publier des besoins textiles, visualiser les flux disponibles et sécuriser le sourcing local.</p></div></div></section>
-<section class="section"><div class="container split"><div class="card"><h3 class="section-title">Les impacts suivis à l’accueil</h3><div class="list"><div class="partner"><h4>Réemploi local</h4><div class="small">Textiles orientés vers ateliers d’upcycling, acteurs de seconde main et associations.</div></div><div class="partner"><h4>Engagement citoyen</h4><div class="small">Les points, concours et récompenses créent un usage récurrent.</div></div><div class="partner"><h4>Traçabilité</h4><div class="small">Chaque dépôt est associé à un point, une catégorie et une date.</div></div></div></div><div class="card"><h3 class="section-title">Accès rapide</h3><div class="actions"><a class="btn primary" href="collecte.html">Voir les points pilotes</a><a class="btn" href="partenaires.html">Partenaires cashback</a><a class="btn" href="entreprises.html">Demandes entreprises</a><a class="btn" href="abonnement.html">Voir les abonnements</a></div></div></div></section>
-<footer class="footer"><div class="container">Contact : <strong>contact@loopandwear-strasbourg.fr</strong> · Instagram : <strong>@loopandwear_strasbourg</strong><br>© Loop & Wear – Prototype étudiant (BUT) · Strasbourg</div></footer><script src="./assets/app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loop & Wear Strasbourg</title>
+  <meta name="description" content="Loop & Wear connecte les particuliers aux besoins réels des acteurs du textile circulaire à Strasbourg." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#home" class="brand">
+        <img src="assets/logo-loop-wear.svg" alt="Logo Loop & Wear" class="brand-logo" />
+        <div>
+          <span class="brand-title">Loop & Wear</span>
+          <span class="brand-subtitle">Strasbourg</span>
+        </div>
+      </a>
+
+      <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
+
+      <nav class="nav-links">
+        <a href="#concept">Concept</a>
+        <a href="#demandes">Demandes</a>
+        <a href="#cashback">Cashback</a>
+        <a href="#impact">Impact</a>
+        <a href="#partenaires">Partenaires</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Plateforme de collecte textile ciblée</span>
+          <h1>Ne déposez plus au hasard.<br>Répondez à de vrais besoins.</h1>
+          <p>
+            Loop & Wear met en relation les particuliers avec les besoins concrets
+            d'acteurs du textile circulaire à Strasbourg : ateliers d'upcycling,
+            structures solidaires, boutiques de seconde main et filières de tri.
+          </p>
+          <div class="hero-actions">
+            <a href="#demandes" class="btn btn-primary">Voir les demandes en cours</a>
+            <a href="#cashback" class="btn btn-secondary">Comprendre le cashback</a>
+          </div>
+          <div class="hero-badges">
+            <span>Demandes visibles</span>
+            <span>Dépôt contrôlé</span>
+            <span>Récompense traçable</span>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="status-card">
+            <div class="status-head">
+              <span class="status-dot"></span>
+              Campagnes actives à Strasbourg
+            </div>
+            <div class="status-list">
+              <article>
+                <strong>Denim réemployable</strong>
+                <p>Jeans et vestes en bon état · tailles mixtes · priorité mars</p>
+              </article>
+              <article>
+                <strong>Textiles pour upcycling</strong>
+                <p>Sweats unis, chemises épaisses, tote bags, denim usé</p>
+              </article>
+              <article>
+                <strong>Chaussures portables</strong>
+                <p>Par paire, propres, semelles intactes, adulte et ado</p>
+              </article>
+            </div>
+            <div class="status-footer">Réponse à un besoin = dépôt plus utile + récompense possible</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="concept">
+      <div class="container">
+        <div class="section-heading center">
+          <span class="eyebrow">Comment ça marche</span>
+          <h2>Une collecte plus réaliste, plus claire, plus utile</h2>
+          <p>Le dépôt se fait uniquement en réponse à une campagne affichée sur la plateforme.</p>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step-card">
+            <div class="step-number">1</div>
+            <h3>Les partenaires publient leurs besoins</h3>
+            <p>Boutiques, ateliers, structures solidaires et acteurs du tri précisent les catégories recherchées, les critères d'état et la durée de la campagne.</p>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">2</div>
+            <h3>Les particuliers déposent les bons articles</h3>
+            <p>Vous consultez les demandes en cours et apportez seulement les vêtements ou chaussures correspondant aux critères indiqués.</p>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">3</div>
+            <h3>Le dépôt est contrôlé</h3>
+            <p>Chaque article est vérifié : état, saison, catégorie, propreté, cohérence avec la demande. Cela évite les dépôts inutiles.</p>
+          </article>
+
+          <article class="step-card">
+            <div class="step-number">4</div>
+            <h3>Réemploi, transformation ou recyclage</h3>
+            <p>Les articles validés sont orientés vers la bonne filière : seconde main, upcycling, don solidaire ou valorisation matière.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="demandes">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Demandes en cours</span>
+          <h2>Déposez en fonction des campagnes actives</h2>
+          <p>Chaque campagne ci-dessous correspond à un besoin précis. Les montants de récompense sont indicatifs et attribués après validation du dépôt.</p>
+        </div>
+
+        <div class="filters">
+          <button class="filter-btn active" data-filter="all">Toutes</button>
+          <button class="filter-btn" data-filter="reemploi">Réemploi</button>
+          <button class="filter-btn" data-filter="upcycling">Upcycling</button>
+          <button class="filter-btn" data-filter="solidaire">Solidaire</button>
+          <button class="filter-btn" data-filter="matiere">Matière</button>
+        </div>
+
+        <div class="campaign-grid">
+          <article class="campaign-card" data-category="reemploi">
+            <span class="tag">Réemploi</span>
+            <h3>Denim en bon état</h3>
+            <p class="campaign-meta">Recherche prioritaire · Boutique partenaire seconde main</p>
+            <ul>
+              <li>Jeans, vestes, jupes denim</li>
+              <li>Sans tache majeure ni déchirure structurelle</li>
+              <li>Tailles 34 à 46</li>
+            </ul>
+            <div class="campaign-footer">
+              <span>Récompense estimée : 40 à 120 points</span>
+              <span>Jusqu'au 31 mars</span>
+            </div>
+          </article>
+
+          <article class="campaign-card" data-category="upcycling">
+            <span class="tag">Upcycling</span>
+            <h3>Sweats unis & chemises épaisses</h3>
+            <p class="campaign-meta">Atelier créatif · Besoin pour transformation textile</p>
+            <ul>
+              <li>Couleurs neutres ou unies</li>
+              <li>Matières robustes, imprimés limités</li>
+              <li>Acceptés même avec usure légère</li>
+            </ul>
+            <div class="campaign-footer">
+              <span>Récompense estimée : 25 à 90 points</span>
+              <span>Jusqu'au 28 mars</span>
+            </div>
+          </article>
+
+          <article class="campaign-card" data-category="solidaire">
+            <span class="tag">Solidaire</span>
+            <h3>Manteaux & vêtements chauds</h3>
+            <p class="campaign-meta">Collecte ciblée · Besoin saisonnier local</p>
+            <ul>
+              <li>Manteaux, pulls, parkas, écharpes</li>
+              <li>Propres, portables, fermetures fonctionnelles</li>
+              <li>Adulte homme et femme</li>
+            </ul>
+            <div class="campaign-footer">
+              <span>Récompense estimée : 30 à 80 points</span>
+              <span>Jusqu'au 22 mars</span>
+            </div>
+          </article>
+
+          <article class="campaign-card" data-category="matiere">
+            <span class="tag">Valorisation matière</span>
+            <h3>Textiles abîmés triés par type</h3>
+            <p class="campaign-meta">Filière matière · Dépôt accepté sous conditions</p>
+            <ul>
+              <li>T-shirts, draps, coton épais, denim usé</li>
+              <li>Propres et secs uniquement</li>
+              <li>Pas de linge humide ni souillé</li>
+            </ul>
+            <div class="campaign-footer">
+              <span>Récompense estimée : 10 à 35 points</span>
+              <span>Campagne continue</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cashback">
+      <div class="container cashback-grid">
+        <div>
+          <div class="section-heading">
+            <span class="eyebrow">Cashback responsable</span>
+            <h2>Un système crédible et conditionné</h2>
+            <p>Chez Loop & Wear, la récompense n'est pas automatique. Elle dépend de l'adéquation entre votre dépôt et une campagne active.</p>
+          </div>
+
+          <div class="cashback-steps">
+            <div class="cashback-item">
+              <strong>1. Vous répondez à une campagne</strong>
+              <p>Les vêtements déposés doivent correspondre à une demande publiée sur la plateforme.</p>
+            </div>
+            <div class="cashback-item">
+              <strong>2. Le dépôt est validé</strong>
+              <p>Un contrôle vérifie l'état, la catégorie et la quantité réellement utiles à la campagne.</p>
+            </div>
+            <div class="cashback-item">
+              <strong>3. Vous recevez des points</strong>
+              <p>Les points sont crédités sur votre compte Loop & Wear selon la qualité et la pertinence du dépôt.</p>
+            </div>
+            <div class="cashback-item">
+              <strong>4. Vous convertissez vos avantages</strong>
+              <p>Points fidélité, bons partenaires, réductions événementielles ou contribution solidaire.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="cashback-panel">
+          <h3>Exemples d'utilisation des points</h3>
+          <div class="reward-card">
+            <span>120 points</span>
+            <p>Bon de réduction sur une vente seconde main partenaire</p>
+          </div>
+          <div class="reward-card">
+            <span>200 points</span>
+            <p>Accès prioritaire à un événement de collecte ou atelier créatif</p>
+          </div>
+          <div class="reward-card">
+            <span>300 points</span>
+            <p>Bon d'achat responsable sur la plateforme ou cagnotte solidaire</p>
+          </div>
+          <small>Le cashback est ici présenté sous forme d'avantages et crédits traçables, pour rester cohérent avec une logique d'économie circulaire.</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="impact">
+      <div class="container">
+        <div class="section-heading center">
+          <span class="eyebrow">Impact écologique</span>
+          <h2>Pourquoi une collecte ciblée change tout</h2>
+          <p>Collecter selon un besoin réel améliore la qualité du tri, limite les flux inutiles et augmente la part de textile effectivement valorisée.</p>
+        </div>
+
+        <div class="impact-grid">
+          <article class="impact-card">
+            <h3>Moins de dépôts inutilisables</h3>
+            <p>Les critères affichés en amont évitent d'apporter des articles qui ne pourront pas être réemployés ou traités correctement.</p>
+          </article>
+          <article class="impact-card">
+            <h3>Plus de réemploi local</h3>
+            <p>Les pièces conformes peuvent être orientées plus vite vers la seconde main, l'atelier ou la structure qui en a réellement besoin.</p>
+          </article>
+          <article class="impact-card">
+            <h3>Une meilleure traçabilité</h3>
+            <p>Chaque campagne relie un dépôt à un usage précis, ce qui rend la démarche plus lisible pour le déposant comme pour le partenaire.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="partenaires">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Écosystème local</span>
+          <h2>Des références ancrées dans le textile circulaire strasbourgeois</h2>
+          <p>Cette maquette met en avant des acteurs existants du territoire pour rendre le projet crédible. La plateforme s'inscrit dans une logique d'écosystème local.</p>
+        </div>
+
+        <div class="partners-grid">
+          <article class="partner-card">
+            <h3>Vétis</h3>
+            <p>Acteur du réemploi textile sur le territoire, utile comme référence pour une logique de collecte, tri et valorisation locale.</p>
+          </article>
+          <article class="partner-card">
+            <h3>Emmaüs Mundo</h3>
+            <p>Référence solidaire locale pouvant illustrer la réutilisation et la redistribution de vêtements encore portables.</p>
+          </article>
+          <article class="partner-card">
+            <h3>Le Relais Est</h3>
+            <p>Repère crédible pour la collecte textile et l'orientation vers les bonnes filières de valorisation.</p>
+          </article>
+          <article class="partner-card">
+            <h3>Horizon Amitié Solibat</h3>
+            <p>Structure locale cohérente avec une approche territoriale du réemploi, du tri et de l'utilité sociale.</p>
+          </article>
+        </div>
+
+        <div class="notice-box">
+          <strong>Important :</strong> cette version de site présente ces structures comme des références d'écosystème local pour un projet d'étude. Si tu veux, tu pourras remplacer ensuite le texte par “partenaires pressentis” ou “acteurs inspirants du territoire”.
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="faq">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">FAQ</span>
+          <h2>Questions fréquentes</h2>
+        </div>
+
+        <div class="faq-list">
+          <details>
+            <summary>Peut-on déposer n'importe quel vêtement ?</summary>
+            <p>Non. Le dépôt doit correspondre à une campagne en cours. C'est ce qui rend la plateforme cohérente et évite les dépôts inutiles.</p>
+          </details>
+          <details>
+            <summary>Le cashback est-il de l'argent versé directement ?</summary>
+            <p>Pas forcément. Sur cette maquette, le cashback est présenté sous forme de points, bons d'achat, réductions ou avantages partenaires.</p>
+          </details>
+          <details>
+            <summary>Pourquoi afficher les besoins des entreprises ?</summary>
+            <p>Parce que le service repose sur la réponse à une demande réelle. Cela professionnalise la collecte et rend le projet plus crédible.</p>
+          </details>
+          <details>
+            <summary>Que deviennent les vêtements refusés ?</summary>
+            <p>Ils ne sont pas intégrés à la campagne. Selon l'organisation retenue, ils peuvent être redirigés vers une autre filière adaptée ou refusés sur place.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="brand footer-brand">
+          <img src="assets/logo-loop-wear.svg" alt="Logo Loop & Wear" class="brand-logo" />
+          <div>
+            <span class="brand-title">Loop & Wear</span>
+            <span class="brand-subtitle">Strasbourg</span>
+          </div>
+        </div>
+        <p>Plateforme de collecte textile ciblée pour relier les dépôts des particuliers aux besoins concrets du territoire.</p>
+      </div>
+
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#concept">Concept</a></li>
+          <li><a href="#demandes">Demandes en cours</a></li>
+          <li><a href="#cashback">Cashback</a></li>
+          <li><a href="#partenaires">Partenaires</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Contact projet</h4>
+        <ul>
+          <li>contact@loopandwear.fr</li>
+          <li>Strasbourg · Projet étudiant</li>
+          <li>Collecte textile responsable</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
