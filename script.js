@@ -12,9 +12,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const liveFeedback = document.querySelector('#live-feedback');
   const walletHistory = document.querySelector('#wallet-history');
   const subscriptionStatus = document.querySelector('#subscription-status');
+  const trackerCode = document.querySelector('#tracker-code');
+  const trackerDrop = document.querySelector('#tracker-drop');
+  const trackerValidation = document.querySelector('#tracker-validation');
+  const trackerNote = document.querySelector('#tracker-note');
+  const markDroppedBtn = document.querySelector('#mark-dropped-btn');
+  const validateDepositBtn = document.querySelector('#validate-deposit-btn');
 
   let balance = 280;
   let classementPoints = 820;
+  let currentDeposit = null;
 
   const setFeedback = (message) => {
     if (liveFeedback) liveFeedback.textContent = message;
@@ -52,12 +59,66 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener('click', () => {
       const campaign = button.dataset.campaign || 'campagne';
       const points = Number(button.dataset.points || 0);
-      button.textContent = 'Dépôt réservé';
+      const location = button.dataset.location || 'point de collecte';
+      const depositCode = `LNW-${Math.floor(10000 + Math.random() * 90000)}`;
+
+      reserveButtons.forEach(btn => {
+        btn.disabled = false;
+        btn.classList.remove('is-disabled');
+        btn.textContent = 'Créer un bon de dépôt';
+      });
+
+      button.textContent = 'Bon généré';
       button.disabled = true;
       button.classList.add('is-disabled');
-      setFeedback(`Dépôt réservé pour « ${campaign} ». Jusqu'à ${points} points pourront être crédités après validation en borne.`);
+
+      currentDeposit = { campaign, points, location, code: depositCode, dropped: false, validated: false };
+
+      if (trackerCode) trackerCode.textContent = `Bon ${depositCode} créé pour « ${campaign} » · dépôt prévu à ${location}.`;
+      if (trackerDrop) trackerDrop.textContent = 'En attente du dépôt physique par le client.';
+      if (trackerValidation) trackerValidation.textContent = `En attente du scan / contrôle qualité · jusqu'à ${points} points possibles.`;
+      if (trackerNote) trackerNote.textContent = `Le client montre le code ${depositCode} sur place. Le point de collecte retrouve la demande, contrôle les articles et valide ensuite le dépôt.`;
+      if (markDroppedBtn) markDroppedBtn.disabled = false;
+      if (validateDepositBtn) validateDepositBtn.disabled = true;
+
+      setFeedback(`Bon de dépôt créé pour « ${campaign} » : code ${depositCode}. Le client doit maintenant déposer le sac à ${location}, puis attendre la validation.`);
     });
   });
+
+
+  if (markDroppedBtn) {
+    markDroppedBtn.addEventListener('click', () => {
+      if (!currentDeposit) {
+        setFeedback('Aucun bon de dépôt actif à déclarer.');
+        return;
+      }
+
+      currentDeposit.dropped = true;
+      if (trackerDrop) trackerDrop.textContent = `Dépôt déclaré par le client à ${currentDeposit.location}. Le sac attend la confirmation du point de collecte.`;
+      if (trackerValidation) trackerValidation.textContent = 'Statut : dépôt reçu, contrôle qualité en cours.';
+      if (trackerNote) trackerNote.textContent = 'Le dépôt a été signalé comme effectué. Dans une vraie app, une borne, un scan QR ou un agent confirme maintenant la réception.';
+      markDroppedBtn.disabled = true;
+      if (validateDepositBtn) validateDepositBtn.disabled = false;
+      setFeedback(`Dépôt physique déclaré pour ${currentDeposit.code}. Il faut maintenant une validation du point de collecte pour créditer les points.`);
+    });
+  }
+
+  if (validateDepositBtn) {
+    validateDepositBtn.addEventListener('click', () => {
+      if (!currentDeposit || !currentDeposit.dropped) {
+        setFeedback("Le dépôt doit d'abord être marqué comme déposé.");
+        return;
+      }
+
+      currentDeposit.validated = true;
+      balance += currentDeposit.points;
+      if (pointsBalance) pointsBalance.textContent = balance;
+      if (trackerValidation) trackerValidation.textContent = `Validé : +${currentDeposit.points} points crédités pour « ${currentDeposit.campaign} ».`;
+      if (trackerNote) trackerNote.textContent = `Validation terminée. Les points sont maintenant disponibles dans le portefeuille et utilisables dans la boutique cashback.`;
+      if (validateDepositBtn) validateDepositBtn.disabled = true;
+      setFeedback(`Dépôt validé pour « ${currentDeposit.campaign} » : +${currentDeposit.points} points ajoutés au portefeuille après contrôle.`);
+    });
+  }
 
   usageButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -84,25 +145,32 @@ document.addEventListener("DOMContentLoaded", () => {
       button.disabled = true;
       button.classList.add('is-disabled');
 
-      if (cost === 90) {
+      const reward = button.dataset.reward || '';
+
+      if (reward === 'contest') {
         classementPoints += 50;
         if (leaderboardPoints) leaderboardPoints.textContent = `${classementPoints} pts`;
         setFeedback('Ticket concours activé : 90 points débités et +50 points ajoutés au classement mensuel.');
         return;
       }
 
-      if (cost === 180) {
+      if (reward === 'subscription') {
         if (subscriptionStatus) subscriptionStatus.textContent = 'Abonnement actuel : Loop & Wear Plus actif via cashback';
         setFeedback('Abonnement Plus activé : 180 points débités pour 1 mois premium.');
         return;
       }
 
-      if (cost === 120) {
-        setFeedback('Bon d’achat activé : 120 points débités pour un crédit de 5€ dans l’app.');
+      if (reward === 'place-cinema') {
+        setFeedback('Place de cinéma activée : 150 points débités. Le coupon apparaît dans les avantages de l’app.');
         return;
       }
 
-      if (cost === 240) {
+      if (reward === 'nike-5') {
+        setFeedback('Coupon 5€ activé : 220 points débités pour une réduction marque partenaire type Nike.');
+        return;
+      }
+
+      if (reward === 'atelier') {
         setFeedback('Atelier partenaire réservé : 240 points débités avec accès prioritaire confirmé.');
         return;
       }

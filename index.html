@@ -66,8 +66,8 @@
             </div>
             <div class="mini-dashboard">
               <article>
-                <strong>2 demandes compatibles</strong>
-                <p>Vos articles enregistrés correspondent à des campagnes actives.</p>
+                <strong>1 dépôt en attente de validation</strong>
+                <p>Un bon de dépôt peut être généré, scanné au point de collecte puis validé par l'agent.</p>
               </article>
               <article>
                 <strong>280 points disponibles</strong>
@@ -138,6 +138,46 @@
           <button class="filter-btn" data-filter="matiere">Matière</button>
         </div>
 
+        <div class="deposit-tracker" id="deposit-tracker">
+          <div class="tracker-card tracker-main">
+            <div class="tracker-head">
+              <span class="eyebrow">Suivi du dépôt</span>
+              <h3>Comprendre “créer un bon de dépôt”</h3>
+              <p>Le bouton ne veut pas dire “déposer au hasard”. Il sert à générer un bon de dépôt avec un identifiant unique, lié à une demande précise. Ce bon est présenté au point de collecte, scanné, puis le dépôt est validé uniquement si les articles correspondent au besoin publié.</p>
+            </div>
+            <div class="tracker-grid">
+              <article>
+                <strong>Étape 1 · Bon créé</strong>
+                <p id="tracker-code">Aucun bon généré pour le moment.</p>
+              </article>
+              <article>
+                <strong>Étape 2 · Dépôt physique</strong>
+                <p id="tracker-drop">Pas encore déposé dans une benne ou chez un partenaire.</p>
+              </article>
+              <article>
+                <strong>Étape 3 · Validation</strong>
+                <p id="tracker-validation">Aucune validation enregistrée.</p>
+              </article>
+            </div>
+            <div class="tracker-actions">
+              <button class="btn btn-secondary small-btn" id="mark-dropped-btn" disabled>Je l'ai déposé</button>
+              <button class="btn btn-primary small-btn" id="validate-deposit-btn" disabled>Valider le dépôt</button>
+            </div>
+            <div class="tracker-note" id="tracker-note">Quand un bon est créé, l'utilisateur reçoit un code de dépôt. Après dépôt, le point de collecte confirme la réception et seuls les articles acceptés déclenchent les points.</div>
+          </div>
+
+          <div class="tracker-card tracker-side">
+            <h3>Validation concrète</h3>
+            <ul>
+              <li>L'utilisateur choisit une campagne et génère un bon de dépôt.</li>
+              <li>Le bon affiche un code ou QR à présenter à la collecte.</li>
+              <li>Le point de collecte associe le sac déposé à la bonne demande.</li>
+              <li>Après contrôle, l'app indique “validé”, “partiellement validé” ou “refusé”.</li>
+            </ul>
+            <p class="tracker-side-note">Dans cette maquette, le bouton <strong>Valider le dépôt</strong> simule l'action du point de collecte ou de la borne de scan.</p>
+          </div>
+        </div>
+
         <div class="campaign-grid">
           <article class="campaign-card" data-category="reemploi">
             <span class="tag">Réemploi</span>
@@ -154,7 +194,7 @@
               <span><strong>Gain :</strong> 40 à 120 points</span>
             </div>
             <div class="campaign-actions">
-              <button class="btn btn-primary small-btn reserve-btn" data-campaign="Denim en bon état" data-points="120">Réserver mon dépôt</button>
+              <button class="btn btn-primary small-btn reserve-btn" data-campaign="Denim en bon état" data-points="120" data-location="Vétis · Esplanade">Créer un bon de dépôt</button>
               <button class="btn btn-secondary small-btn usage-btn" data-usage="Bon d'achat seconde main et réduction sur revente">Voir l'usage des points</button>
             </div>
             <div class="campaign-footer">
@@ -178,7 +218,7 @@
               <span><strong>Gain :</strong> 25 à 90 points</span>
             </div>
             <div class="campaign-actions">
-              <button class="btn btn-primary small-btn reserve-btn" data-campaign="Sweats unis &amp; chemises épaisses" data-points="90">Réserver mon dépôt</button>
+              <button class="btn btn-primary small-btn reserve-btn" data-campaign="Sweats unis &amp; chemises épaisses" data-points="90" data-location="Vétis · Route des Romains">Créer un bon de dépôt</button>
               <button class="btn btn-secondary small-btn usage-btn" data-usage="Atelier premium, accès anticipé et réservation prioritaire">Voir l'usage des points</button>
             </div>
             <div class="campaign-footer">
@@ -202,7 +242,7 @@
               <span><strong>Gain :</strong> 30 à 80 points</span>
             </div>
             <div class="campaign-actions">
-              <button class="btn btn-primary small-btn reserve-btn" data-campaign="Manteaux &amp; vêtements chauds" data-points="80">Réserver mon dépôt</button>
+              <button class="btn btn-primary small-btn reserve-btn" data-campaign="Manteaux &amp; vêtements chauds" data-points="80" data-location="Emmaüs Montagne Verte">Créer un bon de dépôt</button>
               <button class="btn btn-secondary small-btn usage-btn" data-usage="Bonus solidaire et visibilité accrue dans le classement">Voir l'usage des points</button>
             </div>
             <div class="campaign-footer">
@@ -226,7 +266,7 @@
               <span><strong>Gain :</strong> 10 à 35 points</span>
             </div>
             <div class="campaign-actions">
-              <button class="btn btn-primary small-btn reserve-btn" data-campaign="Textiles abîmés triés par type" data-points="35">Réserver mon dépôt</button>
+              <button class="btn btn-primary small-btn reserve-btn" data-campaign="Textiles abîmés triés par type" data-points="35" data-location="La Coopette">Créer un bon de dépôt</button>
               <button class="btn btn-secondary small-btn usage-btn" data-usage="Réduction sur l'abonnement et frais de service">Voir l'usage des points</button>
             </div>
             <div class="campaign-footer">
@@ -245,7 +285,7 @@
           <div class="section-heading">
             <span class="eyebrow">Cashback responsable</span>
             <h2>Des points réellement utilisables dans l'application</h2>
-            <p>Le cashback Loop &amp; Wear n'est pas décoratif : il sert pendant l'utilisation de l'app, à chaque étape du parcours utilisateur.</p>
+            <p>Le cashback Loop &amp; Wear n'est pas décoratif : il peut être dépensé dans l'app en avantages concrets, avec un catalogue simple à comprendre pour l'utilisateur.</p>
           </div>
 
           <div class="cashback-steps">
@@ -255,15 +295,15 @@
             </div>
             <div class="cashback-item">
               <strong>2. Débloquer des usages concrets</strong>
-              <p>Les points servent à payer un abonnement, acheter un bon d'achat, entrer dans un concours mensuel ou réserver un atelier.</p>
+              <p>Les points servent à activer une place de cinéma, une réduction marque partenaire, un abonnement Plus ou un ticket concours.</p>
             </div>
             <div class="cashback-item">
               <strong>3. Consommer les points immédiatement</strong>
-              <p>Le bouton “Utiliser” est intégré à chaque offre : pas besoin de sortir de l'application.</p>
+              <p>Le bouton “Utiliser” active l'avantage immédiatement et l'historique du portefeuille est mis à jour dans l'application.</p>
             </div>
             <div class="cashback-item">
               <strong>4. Suivre l'historique</strong>
-              <p>L'utilisateur voit où il a gagné ses points, où il les a dépensés et quel avantage il a réellement activé.</p>
+              <p>L'utilisateur voit quel dépôt a été validé, combien de points ont été crédités et quel avantage a été débloqué.</p>
             </div>
           </div>
         </div>
@@ -271,29 +311,34 @@
         <div class="cashback-panel" id="cashback-shop">
           <h3>Boutique cashback</h3>
           <div class="reward-card">
-            <span>120 points</span>
-            <p>Bon d'achat de 5€ utilisable sur une sélection seconde main dans l'app</p>
-            <button class="btn btn-secondary small-btn redeem-btn" data-cost="120">Utiliser</button>
+            <span>150 points</span>
+            <p>1 place de cinéma activable dans l'app via un coupon partenaire</p>
+            <button class="btn btn-secondary small-btn redeem-btn" data-cost="150" data-reward="place-cinema">Utiliser</button>
+          </div>
+          <div class="reward-card">
+            <span>220 points</span>
+            <p>Coupon de 5€ de réduction chez Nike <small>(exemple de marque partenaire à contractualiser)</small></p>
+            <button class="btn btn-secondary small-btn redeem-btn" data-cost="220" data-reward="nike-5">Utiliser</button>
           </div>
           <div class="reward-card">
             <span>180 points</span>
             <p>1 mois d'abonnement Loop &amp; Wear Plus offert</p>
-            <button class="btn btn-secondary small-btn redeem-btn" data-cost="180">Utiliser</button>
+            <button class="btn btn-secondary small-btn redeem-btn" data-cost="180" data-reward="subscription">Utiliser</button>
           </div>
           <div class="reward-card">
             <span>90 points</span>
             <p>1 ticket concours pour grimper dans le classement mensuel</p>
-            <button class="btn btn-secondary small-btn redeem-btn" data-cost="90">Utiliser</button>
+            <button class="btn btn-secondary small-btn redeem-btn" data-cost="90" data-reward="contest">Utiliser</button>
           </div>
           <div class="reward-card">
             <span>240 points</span>
             <p>Accès à un atelier upcycling partenaire avec réservation prioritaire</p>
-            <button class="btn btn-secondary small-btn redeem-btn" data-cost="240">Utiliser</button>
+            <button class="btn btn-secondary small-btn redeem-btn" data-cost="240" data-reward="atelier">Utiliser</button>
           </div>
           <div class="wallet-box">
             <strong>Mon portefeuille</strong>
             <p><span id="points-balance">280</span> points disponibles</p>
-            <small>Simulation interactive : les points se déduisent quand vous cliquez sur “Utiliser”.</small>
+            <small>Simulation interactive : les points se créditent après validation d'un dépôt et se déduisent quand vous activez un avantage.</small>
           </div>
         </div>
       </div>
@@ -488,6 +533,10 @@
         </div>
 
         <div class="faq-list">
+          <details open>
+            <summary>Que veut dire “créer un bon de dépôt” ?</summary>
+            <p>Cela génère un identifiant unique lié à une campagne, un point de collecte et un type d'articles. Le client présente ce bon sur place, puis le dépôt est confirmé par scan ou validation du partenaire.</p>
+          </details>
           <details>
             <summary>Peut-on déposer n'importe quel vêtement ?</summary>
             <p>Non. Le dépôt doit répondre à une demande active. C'est la base du modèle Loop &amp; Wear.</p>
