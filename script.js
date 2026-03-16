@@ -388,3 +388,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   refreshScoreboard();
 });
+
+
+  const subscribePlanBtn = document.getElementById("subscribe-plan-btn");
+  subscribePlanBtn?.addEventListener("click", () => {
+    if (subscriptionActive) {
+      updateFeedback("L’abonnement Plus est déjà actif sur ce compte.");
+      return;
+    }
+    subscriptionActive = true;
+    unlockBadge(3);
+    refreshScoreboard();
+    updateWallet("Abonnement Loop & Wear Plus activé depuis l’onglet dédié.");
+    updateFeedback("Abonnement Plus activé : bonus, offres exclusives et accès prioritaire débloqués.");
+    document.querySelector("#profil")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
