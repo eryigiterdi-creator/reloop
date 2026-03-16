@@ -1,41 +1,43 @@
-*{box-sizing:border-box}html,body{margin:0;padding:0}
+
+*{box-sizing:border-box}html,body{margin:0;padding:0;scroll-behavior:smooth}
 :root{
-  --bg:#05070b;--panel:#0f1420;--panel2:#121a28;--text:#f3f6fb;--muted:#a5b4c7;
-  --line:rgba(255,255,255,.08);--green:#2ee58f;--cyan:#22b8ff;--shadow:0 18px 40px rgba(0,0,0,.25)
+  --bg:#04070d;--panel:rgba(13,18,30,.88);--panel2:rgba(18,26,40,.92);--line:rgba(255,255,255,.08);
+  --text:#f2f6fb;--muted:#a9b7c8;--green:#34e69c;--cyan:#24b9ff;--gold:#ffd76b;--silver:#d7dce5;--bronze:#e4a97f;
+  --shadow:0 22px 44px rgba(0,0,0,.28)
 }
 body{
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--text);
-  line-height:1.45;
-  background:
-    linear-gradient(rgba(3,10,18,.78), rgba(3,10,18,.84)),
-    url('./bg-eco.svg') center/cover fixed no-repeat,
-    var(--bg);
+  font-family:Arial,Helvetica,sans-serif;color:var(--text);line-height:1.5;
+  background:linear-gradient(rgba(3,8,14,.82),rgba(3,8,14,.86)),url('./bg-eco.svg') center/cover fixed no-repeat,var(--bg)
 }
 a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
-.container{max-width:1180px;margin:0 auto;padding:0 20px}
-.topbar{position:sticky;top:0;z-index:20;background:rgba(3,7,12,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 0}
-.brand{display:flex;align-items:center;gap:18px;min-width:0}.brand-logo{width:175px;height:auto;display:block;filter:drop-shadow(0 8px 25px rgba(0,0,0,.35))}
-.brand h1{margin:0;font-size:20px}.brand p{margin:4px 0 0;color:var(--muted);font-size:14px}
-.menu{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}.menu a{padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
-.menu a:hover,.btn:hover{transform:translateY(-1px)}
-.hero{padding:54px 0 18px;background:radial-gradient(circle at left top, rgba(46,229,143,.12), transparent 24%),radial-gradient(circle at right top, rgba(34,184,255,.12), transparent 24%)}
+.container{max-width:1180px;margin:0 auto;padding:0 20px}.narrow{max-width:920px}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(2,6,12,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 0}.brand{display:flex;align-items:center;gap:18px;min-width:0}
+.brand-logo{width:180px;height:auto;display:block;filter:drop-shadow(0 10px 24px rgba(0,0,0,.35))}.brand h1{margin:0;font-size:20px}.brand p{margin:4px 0 0;font-size:14px;color:var(--muted)}
+.menu{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}.menu a{padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);transition:.15s ease}
+.menu a:hover,.btn:hover,.chip:hover{transform:translateY(-1px);background:rgba(255,255,255,.06)}
+.hero{padding:56px 0 20px;background:radial-gradient(circle at left top,rgba(52,230,156,.12),transparent 24%),radial-gradient(circle at right top,rgba(36,185,255,.12),transparent 24%)}
 .grid{display:grid;gap:18px}.grid-2{grid-template-columns:1.45fr 1fr}.grid-3{grid-template-columns:repeat(3,1fr)}.split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:var(--shadow)}
-.hero h2{font-size:62px;line-height:1.02;margin:0 0 16px;letter-spacing:-1.8px}.lead{font-size:17px;color:#cfdae9;max-width:760px}
-.badges,.actions{display:flex;flex-wrap:wrap;gap:12px}.badges{margin-top:18px}.badge{padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#d8e2ef}
-.section{padding:18px 0 8px}.section-title{font-size:32px;margin:0 0 14px}.muted,.small{color:var(--muted)}.small{font-size:14px}
+.hero h2{font-size:62px;line-height:1.02;letter-spacing:-1.8px;margin:0 0 16px}.lead{font-size:17px;color:#cfdae9;max-width:760px}.muted,.small{color:var(--muted)}.small{font-size:14px}
+.badges,.actions,.chips{display:flex;flex-wrap:wrap;gap:12px}.badges{margin-top:18px}.badge,.chip,.pill{padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#d8e2ef}
+.pill{background:rgba(36,185,255,.12);border-color:rgba(36,185,255,.22);font-size:13px}.chip.active{background:linear-gradient(135deg,rgba(52,230,156,.15),rgba(36,185,255,.14))}
+.section{padding:18px 0 8px}.section-title{font-size:32px;margin:0 0 14px}
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;border-radius:14px;border:1px solid var(--line);background:#141d2d;color:#fff;font-weight:700;cursor:pointer;transition:.15s ease}
 .btn.primary{background:linear-gradient(135deg,var(--green),var(--cyan));color:#041016;border:none}.btn.ghost{background:transparent}
-.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.kpi{padding:20px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line)}.kpi strong{display:block;font-size:26px;margin-top:8px}
-.list{display:grid;gap:12px}.point,.partner,.persona,.faq-item,.history-item,.offer,.contest-prize{padding:18px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
-.partner h4,.point h4,.persona h4,.faq-item h4,.offer h4,.contest-prize h4{margin:0 0 8px}.inline{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.pill{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(34,184,255,.1);border:1px solid rgba(34,184,255,.2);font-size:13px}
-.form-row{display:grid;gap:8px;margin-bottom:14px}label{font-weight:700}input,select,textarea{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:#0d1320;color:#fff}textarea{min-height:108px;resize:vertical}
-.notice{padding:14px 16px;border-radius:16px;background:rgba(46,229,143,.12);border:1px solid rgba(46,229,143,.25);color:#def7e8}
-.rank{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.rank:last-child{border-bottom:none}.rank.top1{color:#ffd76b}.rank.top2{color:#d8dee9}.rank.top3{color:#f2b98b}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.kpi{padding:20px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line)}.kpi strong{display:block;font-size:28px;margin-top:8px}
+.kpi .delta{display:inline-block;margin-top:10px;font-size:12px;color:#dbf9ef;background:rgba(52,230,156,.1);padding:6px 10px;border-radius:999px;border:1px solid rgba(52,230,156,.16)}
+.list{display:grid;gap:12px}.point,.partner,.persona,.faq-item,.history-item,.offer,.contest-prize,.impact-card,.challenge-card,.company-card{padding:18px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+.partner h4,.point h4,.persona h4,.faq-item h4,.offer h4,.contest-prize h4,.impact-card h4,.challenge-card h4,.company-card h4{margin:0 0 8px}.inline{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.form-row{display:grid;gap:8px;margin-bottom:14px}label{font-weight:700}input,select,textarea{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:#0d1320;color:#fff}textarea{min-height:110px;resize:vertical}
+.notice{padding:14px 16px;border-radius:16px;background:rgba(52,230,156,.12);border:1px solid rgba(52,230,156,.25);color:#def7e8}
+.rank{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}.rank:last-child{border-bottom:none}.rank.top1{color:var(--gold)}.rank.top2{color:var(--silver)}.rank.top3{color:var(--bronze)}
+.podium{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:14px;align-items:end}.podium-card{padding:18px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.04);text-align:center}.podium-card h3{margin:10px 0 6px}.podium-card.top1{min-height:220px;background:linear-gradient(180deg,rgba(255,215,107,.14),rgba(255,255,255,.03));border-color:rgba(255,215,107,.28)}.podium-card.top2{min-height:180px}.podium-card.top3{min-height:160px}
+.medal{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-weight:800;margin:0 auto;background:rgba(255,255,255,.08)}.medal.gold{background:rgba(255,215,107,.18)}.medal.silver{background:rgba(215,220,229,.18)}.medal.bronze{background:rgba(228,169,127,.18)}
+.progress{height:10px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}.progress > span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--green),var(--cyan))}
 .code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#0b1220;padding:10px 12px;border-radius:12px;border:1px solid var(--line);word-break:break-all}
-.footer{margin-top:26px;padding:28px 0 40px;border-top:1px solid var(--line);color:var(--muted)}
-.hero-mini h2{font-size:32px;margin:0 0 8px}.highlight{position:relative;overflow:hidden}.highlight:after{content:'';position:absolute;inset:auto -60px -90px auto;width:240px;height:240px;background:radial-gradient(circle, rgba(46,229,143,.16), transparent 66%)}
-.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line)}th{color:#dbe7f3;font-size:14px}
-@media (max-width:980px){.grid-2,.grid-3,.split,.kpis{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}.menu{justify-content:flex-start}.hero h2{font-size:42px}.brand-logo{width:130px}}
+.eco-impact{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.eco-impact .impact-card strong{display:block;font-size:26px;margin-top:6px}
+.hero-visual{display:grid;gap:14px}.glow-card{background:linear-gradient(135deg,rgba(52,230,156,.12),rgba(36,185,255,.12));border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:18px}
+.footer{margin-top:28px;padding:28px 0 40px;border-top:1px solid var(--line);color:#90a5b9}
+.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:12px;border-bottom:1px solid var(--line)}
+@media (max-width:980px){.grid-2,.grid-3,.split,.eco-impact,.podium{grid-template-columns:1fr}.hero h2{font-size:44px}.menu{justify-content:flex-start}.brand-logo{width:140px}}
