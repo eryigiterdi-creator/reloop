@@ -299,3 +299,22 @@ body{
 }
 
 @media (max-width:520px){ .nav-wrap{padding:12px 0}.menu-btn{min-width:52px;min-height:52px} }
+
+
+/* v23 mobile menu fix */
+@media (max-width:1024px){
+  .site-header{position:sticky;top:0;z-index:120}
+  .nav-wrap{position:relative;min-height:88px}
+  .menu-btn{display:grid;place-items:center;position:relative;z-index:131;min-width:56px;min-height:56px;border-radius:20px;font-size:1.7rem;box-shadow:0 8px 20px rgba(31,63,43,.08)}
+  .nav{display:none !important;position:fixed;left:12px;right:12px;top:calc(env(safe-area-inset-top, 0px) + 96px);bottom:calc(env(safe-area-inset-bottom, 0px) + 12px);z-index:130;background:rgba(255,255,255,.98);border:1px solid #dbe6dc;border-radius:28px;padding:18px;overflow-y:auto;-webkit-overflow-scrolling:touch;box-shadow:0 24px 70px rgba(23,31,27,.18);align-content:flex-start;overscroll-behavior:contain}
+  .nav.open{display:flex !important;flex-direction:column;gap:12px}
+  .nav a{width:100%;min-height:72px;display:flex;align-items:center;justify-content:center;padding:18px 16px;border-radius:22px;font-size:1rem;line-height:1.15;flex:0 0 auto}
+  body.menu-open{overflow:hidden}
+}
+@media (max-width:680px){
+  .nav-wrap{min-height:82px}
+  .brand-title{font-size:1.45rem}
+  .brand-sub{font-size:.95rem}
+  .nav{left:10px;right:10px;top:calc(env(safe-area-inset-top, 0px) + 88px);bottom:calc(env(safe-area-inset-bottom, 0px) + 10px);padding:14px}
+  .nav a{min-height:68px;font-size:.98rem;padding:16px 14px}
+}

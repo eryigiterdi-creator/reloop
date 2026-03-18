@@ -73,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
     'Une nouvelle entreprise cherche des sweats unis sur Strasbourg.'
   ];
 
+  menuBtn.setAttribute('aria-expanded', 'false');
+
   if (window.QRious) {
     qr = new QRious({ element: $('qr-canvas'), size: 180, value: 'Loop & Wear Strasbourg' });
   }
