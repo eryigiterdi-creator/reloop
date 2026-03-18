@@ -297,3 +297,5 @@ body{
   .partner-highlight{ grid-template-columns:1fr; }
   .partner-bullets{ justify-content:flex-start; }
 }
+
+@media (max-width:520px){ .nav-wrap{padding:12px 0}.menu-btn{min-width:52px;min-height:52px} }

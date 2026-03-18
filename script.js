@@ -296,8 +296,20 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (menuBtn && nav) {
-    menuBtn.addEventListener('click', () => nav.classList.toggle('open'));
-    nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => nav.classList.remove('open')));
+    menuBtn.addEventListener('click', () => {
+      nav.classList.toggle('open');
+      document.body.classList.toggle('menu-open', nav.classList.contains('open'));
+    });
+    nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => {
+      nav.classList.remove('open');
+      document.body.classList.remove('menu-open');
+    }));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        nav.classList.remove('open');
+        document.body.classList.remove('menu-open');
+      }
+    });
   }
 
   if (window.L) {
